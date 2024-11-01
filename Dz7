@@ -1,0 +1,41 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter the number of Fibonacci terms to write to the file: ");
+        int n = int.Parse(Console.ReadLine());
+
+        string filePath = "fibonacci.txt";
+        WriteFibonacciToFile(n, filePath);
+        
+        Console.WriteLine("Fibonacci sequence from file:");
+        ReadAndPrintFromFile(filePath);
+    }
+
+    static void WriteFibonacciToFile(int n, string filePath)
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            int a = 0, b = 1;
+            for (int i = 0; i < n; i++)
+            {
+                writer.Write(a + " ");
+                int temp = a;
+                a = b;
+                b = temp + b;
+            }
+        }
+    }
+
+    static void ReadAndPrintFromFile(string filePath)
+    {
+        using (StreamReader reader = new StreamReader(filePath))
+        {
+            string content = reader.ReadToEnd();
+            Console.WriteLine(content);
+        }
+    }
+}
